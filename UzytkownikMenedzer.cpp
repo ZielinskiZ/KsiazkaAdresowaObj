@@ -109,3 +109,8 @@ void UzytkownikMenedzer::wylogujUzytkownika() {
     cout << "Wylogowales sie z systemu uzytkownikow." << endl << endl;
     system("pause");
 }
+
+int UzytkownikMenedzer::pobierzIdZalogowanegoUzytkownika() {
+return idZalogowanegoUzytkownika;
+}
+
