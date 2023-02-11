@@ -17,10 +17,10 @@ using namespace std;
 class AdresatMenedzer {
     vector <Adresat> adresaci;
     PlikZAdresatami plikZAdresatami;
+    int idZalogowanegoUzytkownika;
 
     Adresat podajDaneNowegoAdresata();
     int pobierzIdOstatniegoAdresata();
-    int idZalogowanegoUzytkownika;
 
 public:
     AdresatMenedzer(string nazwaPlikuZAdresatami) : plikZAdresatami(nazwaPlikuZAdresatami) {};
