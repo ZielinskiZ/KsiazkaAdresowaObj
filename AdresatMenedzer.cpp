@@ -5,29 +5,29 @@ void AdresatMenedzer::dodajAdresata() {
 
     system("cls");
     cout << " >>> DODAWANIE NOWEGO ADRESATA <<<" << endl << endl;
-    adresat = podajDaneNowegoAdresata();
-
-    adresaci.push_back(adresat);
-    plikZAdresatami.dopiszAdresataDoPliku(adresat);
+    if (idZalogowanegoUzytkownika > 0) {
+        adresat = podajDaneNowegoAdresata();
+        adresaci.push_back(adresat);
+        plikZAdresatami.dopiszAdresataDoPliku(adresat);
+    } else
+        cout << "Przed wprowadzeniem danych nowego adresata, zaloguj sie do panelu Uzytkownika" << endl;
 }
 
 Adresat AdresatMenedzer::podajDaneNowegoAdresata() {
     Adresat adresat;
 
     adresat.ustawId(pobierzIdOstatniegoAdresata());
-    adresat.ustawIdUzytkownika(uzytkownikMenedzer.pobierzIdZalogowanegoUzytkownika());
+    adresat.ustawIdUzytkownika(idZalogowanegoUzytkownika);
 
     string imie;
     cout << "Podaj imie: ";
     cin >> imie;
-    adresat.ustawImie(imie);
-    //adresat.imie = zamienPierwszaLitereNaDuzaAPozostaleNaMale(adresat.imie);
+    adresat.ustawImie(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(imie));
 
     string nazwisko;
     cout << "Podaj nazwisko: ";
     cin >> nazwisko;
-    adresat.ustawNazwisko(nazwisko);
-    //adresat.nazwisko = zamienPierwszaLitereNaDuzaAPozostaleNaMale(adresat.nazwisko);
+    adresat.ustawNazwisko(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(nazwisko));
 
     string numerTelefonu;
     cout << "Podaj numer telefonu: ";
@@ -42,7 +42,7 @@ Adresat AdresatMenedzer::podajDaneNowegoAdresata() {
     string adres;
     cout << "Podaj adres: ";
     cin >> adres;
-    adresat.ustawAdres(adres);
+    adresat.ustawAdres(MetodyPomocnicze::wczytajLinie(adres));
 
     return adresat;
 }
@@ -56,4 +56,20 @@ int AdresatMenedzer::pobierzIdOstatniegoAdresata() {
 
 void AdresatMenedzer::wczytajAdresatowZPliku() {
     adresaci = plikZAdresatami.wczytajAdresatowZPliku();
+}
+
+void AdresatMenedzer::ustawIdZalogowanegoUzytkownika(int noweIdZalogowanegoUzytkownika) {
+    idZalogowanegoUzytkownika = noweIdZalogowanegoUzytkownika;
+}
+
+void AdresatMenedzer::wyswietlWszystkichAdresatow() {
+    for (int i = 0; i < adresaci.size(); i++) {
+        cout << adresaci[i].pobierzId() << endl;
+        cout << adresaci[i].pobierzIdUzytkownika() << endl;
+        cout << adresaci[i].pobierzImie() << endl;
+        cout << adresaci[i].pobierzNazwisko() << endl;
+        cout << adresaci[i].pobierzNumerTelefonu() << endl;
+        cout << adresaci[i].pobierzEmail() << endl;
+        cout << adresaci[i].pobierzAdres() << endl;
+    }
 }
