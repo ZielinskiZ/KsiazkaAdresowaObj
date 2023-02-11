@@ -1,0 +1,6 @@
+1|1|Mariusz|Piechota|123456789|mariusz.piechota@gmail.com|Gdansk, ul. Marynarki Polskiej 56|
+2|3|Danuta|Koszalka|567093124|danusia51@onet.pl|Gorki Zachodnie, ul. Listonoszow 5|
+3|2|Grzegorz|Krupierz|1245323|gregtheone@gmail.com|Jastarnia, ul. Nadmorska 43|
+4|6|Janek|Mroz|234123|jan.mroz@wp.pl| Pomorskie, ul. Kolorowa 3|
+5|6|Asdad|Adcas|adcas|adca|ul. Maklerska 56|
+6|4|Marysia|Jaskolska|1234567|maria.jask@wp.pl| Wzgorze, ul. Nadmorska 57|
