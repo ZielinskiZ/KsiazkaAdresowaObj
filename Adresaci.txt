@@ -3,4 +3,10 @@
 3|2|Grzegorz|Krupierz|1245323|gregtheone@gmail.com|Jastarnia, ul. Nadmorska 43|
 4|6|Janek|Mroz|234123|jan.mroz@wp.pl| Pomorskie, ul. Kolorowa 3|
 5|6|Asdad|Adcas|adcas|adca|ul. Maklerska 56|
-6|4|Marysia|Jaskolska|1234567|maria.jask@wp.pl| Wzgorze, ul. Nadmorska 57|
+6|3|Marysia|Jaskolska|1234567|maria.jask@wp.pl| Wzgorze, ul. Nadmorska 57|
+7|2|Jolanta|Kwiecien|123 567 985|jola@gmail.com|Torun, ul. Malownicza 56/4|
+8|6|Marek|Gwodz Pacynka|123|marek@pacynka.pl|Jordanow, ul. Zjawiskowa 54|
+9|6|Klara|Borowska Szewc|678|klara@gmail.com|Gdansk, ul. Mysliwska 4|
+10|3|Krystian|Nowak|123|123|123|
+11|3|Waldek|Kaczmarski|123|123|123|
+12|4|Oliwier|Jankowski|123|123|123|
