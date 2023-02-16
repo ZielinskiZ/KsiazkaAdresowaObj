@@ -9,8 +9,10 @@ void AdresatMenedzer::dodajAdresata() {
         adresat = podajDaneNowegoAdresata();
         adresaci.push_back(adresat);
         plikZAdresatami.dopiszAdresataDoPliku(adresat);
-    } else
+    } else {
         cout << "Przed wprowadzeniem danych nowego adresata, zaloguj sie do panelu Uzytkownika" << endl;
+        system("pause");
+    }
 }
 
 Adresat AdresatMenedzer::podajDaneNowegoAdresata() {
@@ -19,57 +21,89 @@ Adresat AdresatMenedzer::podajDaneNowegoAdresata() {
     adresat.ustawId(pobierzIdOstatniegoAdresata());
     adresat.ustawIdUzytkownika(idZalogowanegoUzytkownika);
 
-    string imie;
     cout << "Podaj imie: ";
-    cin >> imie;
-    adresat.ustawImie(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(imie));
+    adresat.ustawImie(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(MetodyPomocnicze::wczytajLinie()));
 
-    string nazwisko;
     cout << "Podaj nazwisko: ";
-    cin >> nazwisko;
-    adresat.ustawNazwisko(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(nazwisko));
+    adresat.ustawNazwisko(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(MetodyPomocnicze::wczytajLinie()));
 
-    string numerTelefonu;
     cout << "Podaj numer telefonu: ";
-    cin >> numerTelefonu;
-    adresat.ustawNumerTelefonu(numerTelefonu);
+    adresat.ustawNumerTelefonu(MetodyPomocnicze::wczytajLinie());
 
-    string email;
     cout << "Podaj email: ";
-    cin >> email;
-    adresat.ustawEmail(email);
+    adresat.ustawEmail(MetodyPomocnicze::wczytajLinie());
 
-    string adres;
     cout << "Podaj adres: ";
-    cin >> adres;
-    adresat.ustawAdres(MetodyPomocnicze::wczytajLinie(adres));
+    adresat.ustawAdres(MetodyPomocnicze::wczytajLinie());
 
     return adresat;
 }
 
 int AdresatMenedzer::pobierzIdOstatniegoAdresata() {
-    if (adresaci.empty() == true)
+    if (idOstatniegoAdresata > adresaci.back().pobierzId())
+        return idOstatniegoAdresata + 1;
+    else if (adresaci.empty() == true)
         return 1;
     else
         return adresaci.back().pobierzId() + 1;
 }
 
-void AdresatMenedzer::wczytajAdresatowZPliku() {
+/*void AdresatMenedzer::wczytajAdresatowZPliku() {
     adresaci = plikZAdresatami.wczytajAdresatowZPliku();
-}
+}*/
 
 void AdresatMenedzer::ustawIdZalogowanegoUzytkownika(int noweIdZalogowanegoUzytkownika) {
     idZalogowanegoUzytkownika = noweIdZalogowanegoUzytkownika;
 }
 
+int AdresatMenedzer::wczytajAdresatowZalogowanegoUzytkownikaZPliku() {
+    adresaci.clear();
+    Adresat adresat;
+    idOstatniegoAdresata = 0;
+    string daneJednegoAdresataOddzielonePionowymiKreskami = "";
+    string daneOstaniegoAdresataWPliku = "";
+    fstream plikTekstowy;
+    plikTekstowy.open(plikZAdresatami.pobierzNazwePlikuZAdresatami().c_str(), ios::in);
+
+    if (plikTekstowy.good() == true) {
+        while (getline(plikTekstowy, daneJednegoAdresataOddzielonePionowymiKreskami)) {
+            if(idZalogowanegoUzytkownika == plikZAdresatami.pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(daneJednegoAdresataOddzielonePionowymiKreskami)) {
+                adresat = plikZAdresatami.pobierzDaneAdresata(daneJednegoAdresataOddzielonePionowymiKreskami);
+                adresaci.push_back(adresat);
+            }
+        }
+        daneOstaniegoAdresataWPliku = daneJednegoAdresataOddzielonePionowymiKreskami;
+    } else
+        cout << "Nie udalo sie otworzyc pliku i wczytac danych." << endl;
+
+    plikTekstowy.close();
+    if (daneOstaniegoAdresataWPliku != "") {
+        idOstatniegoAdresata = plikZAdresatami.pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(daneOstaniegoAdresataWPliku);
+        return idOstatniegoAdresata;
+    } else
+        return 0;
+}
+
 void AdresatMenedzer::wyswietlWszystkichAdresatow() {
-    for (int i = 0; i < adresaci.size(); i++) {
-        cout << adresaci[i].pobierzId() << endl;
-        cout << adresaci[i].pobierzIdUzytkownika() << endl;
-        cout << adresaci[i].pobierzImie() << endl;
-        cout << adresaci[i].pobierzNazwisko() << endl;
-        cout << adresaci[i].pobierzNumerTelefonu() << endl;
-        cout << adresaci[i].pobierzEmail() << endl;
-        cout << adresaci[i].pobierzAdres() << endl;
+    system("cls");
+    if (!adresaci.empty()) {
+        cout << "             >>> ADRESACI <<<" << endl;
+        cout << "-----------------------------------------------" << endl;
+        for (vector <Adresat> :: iterator itr = adresaci.begin(); itr != adresaci.end(); itr++) {
+            wyswietlDaneAdresata(*itr);
+        }
+        cout << endl;
+    } else {
+        cout << endl << "Ksiazka adresowa jest pusta." << endl << endl;
     }
+    system("pause");
+}
+
+void AdresatMenedzer::wyswietlDaneAdresata(Adresat adresat) {
+    cout << endl << "Id:                 " << adresat.pobierzId() << endl;
+    cout << "Imie:               " << adresat.pobierzImie() << endl;
+    cout << "Nazwisko:           " << adresat.pobierzNazwisko() << endl;
+    cout << "Numer telefonu:     " << adresat.pobierzNumerTelefonu() << endl;
+    cout << "Email:              " << adresat.pobierzEmail() << endl;
+    cout << "Adres:              " << adresat.pobierzAdres() << endl;
 }
