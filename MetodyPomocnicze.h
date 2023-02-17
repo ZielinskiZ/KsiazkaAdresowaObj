@@ -8,11 +8,11 @@
 using namespace std;
 
 class MetodyPomocnicze {
+    static string zamienPierwszaLiterePoZnakuNaDuza(string tekst, char znak);
 public:
     static string konwersjaIntNaString(int liczba);
     static string wczytajLinie();
     static string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
-    static size_t szukajOdstepuMiedzyWyrazami(string tekst);
     static int konwersjaStringNaInt(string liczba);
     static string pobierzLiczbe(string tekst, int pozycjaZnaku);
 };

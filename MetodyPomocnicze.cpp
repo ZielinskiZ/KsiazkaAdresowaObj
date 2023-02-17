@@ -18,20 +18,18 @@ string MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst
     if (!tekst.empty()) {
         transform(tekst.begin(), tekst.end(), tekst.begin(), ::tolower);
         tekst[0] = toupper(tekst[0]);
-        size_t pozycjaPierwszejLiteryWyrazu = szukajOdstepuMiedzyWyrazami(tekst);
-        tekst[pozycjaPierwszejLiteryWyrazu] = toupper(tekst[pozycjaPierwszejLiteryWyrazu]);
+        tekst = zamienPierwszaLiterePoZnakuNaDuza(tekst, ' ');
+        tekst = zamienPierwszaLiterePoZnakuNaDuza(tekst, '-');
     }
     return tekst;
 }
 
-size_t MetodyPomocnicze::szukajOdstepuMiedzyWyrazami(string tekst) {
-    size_t znalezionaPozycja = tekst.find( ' ' );
-
-    if( znalezionaPozycja == string::npos )
-        return 0;
-
-    else
-        return (znalezionaPozycja + 1);
+string MetodyPomocnicze::zamienPierwszaLiterePoZnakuNaDuza(string tekst, char znak) {
+    for (size_t i = 0; i < tekst.size(); i++) {
+        if (tekst[i] == znak)
+            tekst[i+1] = toupper(tekst[i+1]);
+    }
+    return tekst;
 }
 
 int MetodyPomocnicze::konwersjaStringNaInt(string liczba)
