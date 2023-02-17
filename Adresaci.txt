@@ -1,3 +1,0 @@
-1|1|Marek|Majda|123 123 123|marek@gmail.com|Gdynia, ul. Chylonska 4|
-2|1|Michal|Karbo|123 456 245|michal@gmail.com|Gdansk, ul. Jasminowy Stok 4|
-3|2|Magda|Zielinska|123 123 123|magda@gmail.com|Gdansk, ul. Pobiedzisko 9/5|
