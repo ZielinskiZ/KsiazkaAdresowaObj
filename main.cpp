@@ -73,8 +73,6 @@ int main()
 }
 
 char wybierzOpcjeZMenuGlownego() {
-    char wybor;
-
     system("cls");
     cout << "    >>> MENU  GLOWNE <<<" << endl;
     cout << "---------------------------" << endl;
@@ -83,14 +81,11 @@ char wybierzOpcjeZMenuGlownego() {
     cout << "9. Koniec programu" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
-    wybor = MetodyPomocnicze::wczytajZnak();
 
-    return wybor;
+    return MetodyPomocnicze::wczytajZnak();
 }
 
 char wybierzOpcjeZMenuUzytkownika() {
-    char wybor;
-
     system("cls");
     cout << " >>> MENU UZYTKOWNIKA <<<" << endl;
     cout << "---------------------------" << endl;
@@ -105,7 +100,6 @@ char wybierzOpcjeZMenuUzytkownika() {
     cout << "8. Wyloguj sie" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
-    wybor = MetodyPomocnicze::wczytajZnak();
 
-    return wybor;
+    return MetodyPomocnicze::wczytajZnak();
 }
