@@ -15,23 +15,19 @@ Uzytkownik UzytkownikMenedzer::podajDaneNowegoUzytkownika() {
 
     uzytkownik.ustawId(pobierzIdNowegoUzytkownika());
 
-    string login;
     do {
         cout << "Podaj login: ";
-        cin >> login;
-        uzytkownik.ustawLogin(login);
-    } while (czyIstniejeLogin(uzytkownik.pobierzLogin()) == true);
+        uzytkownik.ustawLogin(MetodyPomocnicze::wczytajLinie());
+    } while (czyIstniejeLogin(uzytkownik.pobierzLogin()));
 
-    string haslo;
     cout << "Podaj haslo: ";
-    cin >> haslo;
-    uzytkownik.ustawHaslo(haslo);
+    uzytkownik.ustawHaslo(MetodyPomocnicze::wczytajLinie());
 
     return uzytkownik;
 }
 
 int UzytkownikMenedzer::pobierzIdNowegoUzytkownika() {
-    if (uzytkownicy.empty() == true)
+    if (uzytkownicy.empty())
         return 1;
     else
         return uzytkownicy.back().pobierzId() + 1;
@@ -55,27 +51,23 @@ void UzytkownikMenedzer::wypiszWszystkichUzytkownikow() {
     }
 }
 
-void UzytkownikMenedzer::wczytajUzytkownikowZPliku() {
-    uzytkownicy = plikZUzytkownikami.wczytajUzytkownikowZPliku();
-}
-
 void UzytkownikMenedzer::logowanieUzytkownika() {
-    Uzytkownik uzytkownik;
     string login = "", haslo = "";
 
     cout << endl << "Podaj login: ";
-    cin >> login;
+    login = MetodyPomocnicze::wczytajLinie();
 
-    for (unsigned int i = 0; i < uzytkownicy.size(); i++) {
-        if (uzytkownicy[i].pobierzLogin() == login) {
+    vector <Uzytkownik>::iterator itr = uzytkownicy.begin();
+    while (itr != uzytkownicy.end()){
+        if (itr -> pobierzLogin() == login) {
             for (int iloscProb = 3; iloscProb > 0; iloscProb--) {
                 cout << "Podaj haslo. Pozostalo prob: " << iloscProb << ": ";
-                cin >> haslo;
+                haslo = MetodyPomocnicze::wczytajLinie();
 
-                if (uzytkownicy[i].pobierzHaslo() == haslo) {
+                if (itr -> pobierzHaslo() == haslo) {
+                    idZalogowanegoUzytkownika = itr -> pobierzId();
                     cout << endl << "Zalogowales sie." << endl << endl;
                     system("pause");
-                    idZalogowanegoUzytkownika = uzytkownicy[i].pobierzId();
                     return;
                 }
             }
@@ -83,6 +75,7 @@ void UzytkownikMenedzer::logowanieUzytkownika() {
             system("pause");
             return;
         }
+        itr++;
     }
     cout << "Nie ma uzytkownika z takim loginem" << endl << endl;
     system("pause");
@@ -108,6 +101,13 @@ void UzytkownikMenedzer::wylogujUzytkownika() {
     idZalogowanegoUzytkownika = 0;
     cout << "Wylogowales sie z systemu uzytkownikow." << endl << endl;
     system("pause");
+}
+
+bool UzytkownikMenedzer::czyUzytkownikJestZalogowany(){
+    if (idZalogowanegoUzytkownika > 0)
+        return true;
+    else
+        return false;
 }
 
 int UzytkownikMenedzer::pobierzIdZalogowanegoUzytkownika() {
